@@ -12,6 +12,6 @@ This is a rough proof of concept showing a technique for encoding data into netw
 
 ### Notes
 * Payload bits are manchester-encoded to prevent synchronization issues.
-* The data rate currently encodes one bit per 5ms raw / 10ms manchester, capping transfers at 100bps. This rate has been tested on local networks and may need to be adjusted for tests over the internet.
+* The data rate in the current implementation is set at ~320bps. This rate has been tested on local networks and may need to be adjusted for tests over the internet.
 * The "harmless" file must be at least popcount(evil) bytes in size
 * This has only been tested on Linux systems.

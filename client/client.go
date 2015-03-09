@@ -1,7 +1,7 @@
 package main
 
 import(
-    //"fmt"
+    "fmt"
     "math"
     "net"
     "os"
@@ -19,6 +19,7 @@ func main(){
     var buff = make([]byte, 3000)
     i, err := conn.Read(buff)
     lastTime := time.Now()
+    startTime := lastTime
     os.Stderr.Write(buff[:i])
     for err = nil; err == nil; {
         i, err = conn.Read(buff)
@@ -26,7 +27,7 @@ func main(){
         os.Stderr.Write(buff[:i])
 
         //Determine the number of time cycles passed
-        zeros := int(cTime.Sub(lastTime) / 5/ time.Millisecond)
+        zeros := int(cTime.Sub(lastTime) / 5 / time.Millisecond)
         for i := 0; i < zeros; i++{
             out += "0"
             sinceLast++
@@ -47,6 +48,7 @@ func main(){
         }
         lastTime = cTime
     }
+    fmt.Fprintf(os.Stderr, "Rate: %fbps\n", float64(lastFlush) / float64(time.Now().Sub(startTime)) *  float64(time.Second))
     //fmt.Println("\nThe message was: " + out)
     //fmt.Println("The message really was: " + string(binconvert(out)))
 }
